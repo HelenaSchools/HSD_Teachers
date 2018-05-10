@@ -1,0 +1,33 @@
+<table id="tbl_sped_alerts" style="display:none">
+<tr><th>IEP</th><th>Accomodations</th></tr>
+~[tlist_sql;
+Select s.lastfirst, s.DCID, CASE to_char(ps_customfields.getcf('STUDENTS',s.id,'mt_504')) WHEN '1' THEN 'Y' ELSE ps_customfields.getcf('STUDENTS',s.id,'spediep_active')  END sped
+from PERIOD p
+inner join SECTION_MEETING sm on sm.SchoolID = p.SchoolID and sm.year_id = p.year_id and sm.period_number = p.period_number
+inner join SECTIONS se on se.id = sm.SectionID
+inner join CC on CC.SectionID = se.id
+inner join STUDENTS s on s.ID = CC.StudentID
+where p.ID = ~[gpv:Period_ID] and sm.sectionid = ~[gpv:sectionId]
+GROUP BY s.lastfirst, s.dcid, CASE to_char(ps_customfields.getcf('STUDENTS',s.id,'mt_504')) WHEN '1' THEN 'Y' ELSE ps_customfields.getcf('STUDENTS',s.id,'spediep_active')  END
+order by s.lastfirst;
+]
+<tr>
+<td id="~(lastfirst;t)"> <a class="dialogM" title="IEP/504 Accommodations" href="/~[directory]/alerts/iepalert.html?frn=001~(DCID,t)"><img src="/images/alert_iep.gif"></a></td>
+<td id="sped">~(sped;i)</td>
+</tr>
+[/tlist_sql]
+</table>
+<script>
+$j('#attendance-table > tbody > tr').each(function() {
+// Make sure we're past the header row.
+if($j(this).index() > 0) {
+// Find the row in the hidden table containing the matching Student's info
+var row = $j('#tbl_sped_alerts').find('td[id="'+$j(this).find('td').eq(0).text()+'"]').closest('tr');
+// If SpEd then append the contents of the link cell into the viewable table's Alert cell
+if( row.find('#sped').text() == 'Y') {
+$j(this).find('td').eq(1).append( row.find('td').eq(0).contents() );
+}
+}
+});
+$j('#tbl_sped_alerts').remove();
+</script>

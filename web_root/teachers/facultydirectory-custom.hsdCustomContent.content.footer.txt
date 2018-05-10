@@ -1,0 +1,7 @@
+<a id="iepAlert" href="javascript:alertwindow('~[directory]', 'iep', '~(studentfrn)')" onMouseOver="window.status='IEP Alert'; return true">~([01]alert_IEP;if.not.blank.then=<img src="/images/alert_iep.gif" height="24" width="31" alt="IEP Alert" border="0">)</a>
+<script>
+    $j('body').addClass('psTeacher');
+    $j('form h1').append($j('#iepAlert'))
+    $j('form p').html('~(studentname)&nbsp;<b>Grade:</b>~([01]grade_level)&nbsp;<b>Student Number:</b>~([01]student_number)&nbsp;<b>State Number:</b>~([01]state_id)&nbsp;<b>DOB:</b>~([01]dob)&nbsp;<b>School:</b>~(studschoolabbr)&nbsp;&nbsp;~[enrollmentstatus]');
+    $j('table td:nth-child(5)').remove();
+</script>

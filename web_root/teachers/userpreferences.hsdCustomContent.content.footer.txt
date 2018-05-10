@@ -1,0 +1,14 @@
+<table id="hsdContent">
+    <tbody>
+        <tr>
+            <td><a href="/teachers/userupdate.html?frn=~[gpv:frn]">Update Information</a></td>
+            <td>Update personal information.</td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $j('td:contains("Change Password")').closest('tr').remove();
+    $j('table').append($j('#hsdContent tbody').html());
+    $j('#hsdContent').remove()
+</script>

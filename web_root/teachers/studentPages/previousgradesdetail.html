@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Complete Academic Record - Detail View</title>
+    ~[wc:commonscripts]
+    <link href="/images/css/screen.css" rel="stylesheet" media="screen">
+    <link href="/images/css/print.css" rel="stylesheet" media="print">
+    <SCRIPT LANGUAGE="JavaScript">
+        // Begin
+        function formHandler(form) {
+            var URL = document.navigation.page.options[document.navigation.page.selectedIndex].value;
+            window.location.href = URL;
+        }
+        // End -->
+    </SCRIPT>
+</head>
+<!--NoLink-->
+
+<body>
+
+    ~[wc:teachers_header_fr_css]
+
+    <form name="navigation">
+        <span class="account-photo">~[studenttitlephoto]</span>
+        <h1>Complete Academic Record - Detail View
+            <span class="nav-teacher">
+                <select name="page" size=1 onChange="javascript:formHandler()">
+                    <option value="">~[text]psx.html.teachers_studentpages.termgrades.select_screens[/text]
+                        <option value="">--------------------~[x:teacherpages]</select>
+            </span>~[studentalert]</h1>
+        <p>~(studentname) &nbsp; ~(grade_level) &nbsp; ~(student_number) &nbsp; &nbsp; ~(track) &nbsp; &nbsp; ~(studschoolabbr)
+            &nbsp; &nbsp; ~[enrollmentstatus]</p>
+    </form>
+    <div class="box-round">
+        <!-- Start of shaded content table -->
+
+        <!-- Stored grades detail view for teachers custom page -->
+        <table border="0" cellspacing="0" cellpadding="4">
+            <tr align="center">
+                <td>
+                    <a href="previousgrades.html?frn=~(studentfrn)">Switch to Normal View</a>
+                </td>
+            </tr>
+        </table>
+        <table border="0" cellspacing="0" cellpadding="4" align="center" width="100%">
+            <tr align="center" bgcolor="#f6f6f6">
+                <td rowspan="2" class="bold">Year/Term</td>
+                <td rowspan="2" class="bold">Grd
+                    <br>Lvl</td>
+                <td rowspan="2" align="left" class="bold">Crs #</td>
+                <td rowspan="2" align="left" class="bold">Course Name</td>
+                <td rowspan="2" class="bold">Store
+                    <br>Code</td>
+                <td rowspan="2" class="bold">Grade</td>
+                <td rowspan="2" class="bold">Earned
+                    <br>Credit</td>
+                <td rowspan="2" class="bold">Pot.
+                    <br>Credit</td>
+                <td rowspan="2" class="bold">Earns
+                    <br>Grad
+                    <br>Credit</td>
+                <td colspan="3" class="bold">Exclude from</td>
+                <td rowspan="2" class="bold">Credit
+                    <br>Type</td>
+            </tr>
+            <tr align="center" bgcolor="#f6f6f6">
+                <td class="bold">GPA</td>
+                <td class="bold">Class
+                    <br>Rank</td>
+                <td class="bold">Honor
+                    <br>Roll</td>
+            </tr>
+            <tr align="center" bgcolor="#edf3fe">~[tlist;storedgrades;studentid=~(curstudid);alternatecolor;nonemessage=No historical grades found for this student.;sortcmd;grade_level,&lt;,storecode,&gt;,course_name,&gt;]
+                <td>~(reltermname;1;1)</td>
+                <td>~(grade_level)</td>
+                <td align="left">~(course_number)</td>
+                <td align="left">~(course_name)</td>
+                <td>~(storecode)</td>
+                <td align="left">
+                    <a href="esg.html?frn=~(frn)">~(grade;if.blank.then=_)</a>
+                </td>
+                <td>~(earnedcrhrs)</td>
+                <td>~(potentialcrhrs)</td>
+                <td>~(decode;~(potentialcrhrs);0; ;Yes)</td>
+                <td>~(decode;~(excludefromgpa);1;Yes; )</td>
+                <td>~(decode;~(excludefromclassrank);1;Yes; )</td>
+                <td>~(decode;~(excludefromhonorroll);1;Yes; )</td>
+                <td align="left">~(credit_type)</td>
+            </tr>
+        </table>
+
+
+    </div>
+    <!-- End of shaded content table -->
+
+    ~[wc:teachers_footer_fr_css]
+
+</body>
+
+</html>

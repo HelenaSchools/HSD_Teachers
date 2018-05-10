@@ -1,0 +1,45 @@
+~[SetPostValue:curstudid=~[gpv:studid]]
+
+<table cellspacing="0" cellpadding="4" align="center">
+    <tr bgcolor="#edf3fe">~[tlist2;students;id=~[gpv:curstudid]]
+
+        <tr>
+            <td width="250" class="bold" rowspan="4" align="center" valign="top">
+                ~(studentname)
+                <br />
+                <br />Student ID: ~(student_number)
+                <br />DOB: ~(dob)
+                <br />Age: ~(age)
+                <br />
+                <br />~(studentphoto)
+            </td>
+            <td width="250" bgcolor="#edf3fe">
+                <b>Home Phone:</b>
+                <br> ~(home_phone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Address:</b>
+                <br />~(street)
+                <br /> ~(city), ~(state) ~(zip)
+            </td>
+        </tr>
+        <tr bgcolor="#edf3fe">
+            <td>
+                <b>Mother: ~(mother)</b>
+                <br />Home Phone: ~(Mother_home_phone)
+                <br />Employer: ~(Mother_Employer)
+                <br />Work Phone: ~(motherdayphone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Father: ~(father)</b>
+                <br />Home Phone: ~(Father_home_phone)
+                <br />Employer: ~(Father_Employer)
+                <br />Work Phone: ~(fatherdayphone)
+            </td>
+        </tr>
+        [/tlist]
+</table>

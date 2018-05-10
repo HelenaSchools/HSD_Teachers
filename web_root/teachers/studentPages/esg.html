@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Stored Grade</title>
+    ~[wc:commonscripts]
+    <link href="/images/css/screen.css" rel="stylesheet" media="screen">
+    <link href="/images/css/print.css" rel="stylesheet" media="print">
+    <SCRIPT LANGUAGE="JavaScript">
+        // Begin
+        function formHandler(form) {
+            var URL = document.navigation.page.options[document.navigation.page.selectedIndex].value;
+            window.location.href = URL;
+        }
+        // End -->
+    </SCRIPT>
+</head>
+<!--NoLink-->
+
+<body>
+
+    ~[wc:teachers_header_fr_css]
+
+    <form name="navigation">
+        <span class="account-photo">~[studenttitlephoto]</span>
+        <h1>View Stored Grade
+            <span class="nav-teacher">
+                <select name="page" size=1 onChange="javascript:formHandler()">
+                    <option value="">~[text]psx.html.teachers_studentpages.termgrades.select_screens[/text]
+                        <option value="">--------------------~[x:teacherpages]</select>
+            </span>~[studentalert]</h1>
+        <p>~(studentname) &nbsp; ~(grade_level) &nbsp; ~(student_number) &nbsp; &nbsp; ~(track) &nbsp; &nbsp; ~(studschoolabbr)
+            &nbsp; &nbsp; ~[enrollmentstatus]</p>
+    </form>
+    <div class="box-round">
+        <!-- Start of shaded content table -->
+
+        <!-- View individual stored grade for teachers custom page -->
+        <table border="0" cellspacing="0" cellpadding="4">
+            <tr>
+                <td>
+                    <a href="previousgrades.html?frn=~(studentfrn)">Back to Normal View</a> |
+                    <a href="previousgradesdetail.html?frn=~(studentfrn)">Back to Detail View</a>
+                </td>
+            </tr>
+        </table>
+
+        <table border="0" cellspacing="0" cellpadding="4">
+            <tr bgcolor="#edf3fe">
+                <td class="bold">School</td>
+                <td>~(schoolname)</td>
+            </tr>
+            <tr>
+                <td class="bold">School year (Term)</td>
+                <td>~(reltermname;2;0) (~(reltermname))</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Store code</td>
+                <td>~(storecode)</td>
+            </tr>
+            <tr>
+                <td class="bold">Hist. grade level</td>
+                <td>~(grade_level)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Associated section</td>
+                <td>~(storedsectioninfo)</td>
+            </tr>
+            <tr>
+                <td class="bold">Course number</td>
+                <td>~(course_number)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Course name</td>
+                <td>~(course_name)</td>
+            </tr>
+            <tr>
+                <td class="bold">Teacher name</td>
+                <td>~(teacher_name)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Associated grade scale</td>
+                <td>~(gradescale_name;if.blank.then=None)</td>
+            </tr>
+            <tr>
+                <td class="bold">Grade</td>
+                <td>~(grade)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">GPA points</td>
+                <td>~(gpa_points)</td>
+            </tr>
+            <tr>
+                <td class="bold">Added value</td>
+                <td>~(gpa_addedvalue)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Percent</td>
+                <td>~(percent)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Absences</td>
+                <td>~(absences)</td>
+            </tr>
+            <tr>
+                <td class="bold">Tardies</td>
+                <td>~(tardies)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Earned credit hours</td>
+                <td>~(earnedcrhrs)</td>
+            </tr>
+            <tr>
+                <td class="bold">Potential credit hours</td>
+                <td>~(potentialcrhrs)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Credit type</td>
+                <td>~(credit_type)</td>
+            </tr>
+            <tr>
+                <td class="bold">Exclude from GPA?</td>
+                <td>~(decode;~(excludefromgpa);1;Exclude;Include)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Exclude from class rank?</td>
+                <td>~(decode;~(excludefromclassrank);1;Exclude;Include)</td>
+            </tr>
+            <tr>
+                <td class="bold">Exclude from honor roll?</td>
+                <td>~(decode;~(excludefromhonorroll);1;Exclude;Include)</td>
+            </tr>
+            <tr bgcolor="#edf3fe">
+                <td class="bold">Teacher comment</td>
+                <td>~(comment)</textarea>
+                </td>
+            </tr>
+            <tr valign="baseline">
+                <td class="bold">Change history</td>
+                <td>~(log;nohtml)</td>
+            </tr>
+            <!-- Start insert state specific log information -->
+            ~[x:insertfile;state/esg~[displaypref:districtstate].html]
+            <!-- End insert state specific log information -->
+        </table>
+
+
+    </div>
+    <!-- End of shaded content table -->
+
+    ~[wc:teachers_footer_fr_css]
+
+</body>
+
+</html>

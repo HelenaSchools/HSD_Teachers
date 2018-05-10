@@ -1,0 +1,37 @@
+~[SetPostValue:curstudid=~[gpv:studid]]
+
+<table border="0" cellspacing="0" cellpadding="4" align="center">
+    <tr bgcolor="#edf3fe">~[tlist2;students;id=~(curstudid)]
+        <td>
+            <b>~(first_name) ~(last_name)'s Schedule</b>
+        </td>[/tlist]
+    </tr>
+</table>
+
+<table border="0" cellspacing="0" cellpadding="4" align="center">
+    <tr bgcolor="#f6f6f6" class="bold">
+        <td width="60">Exp</td>
+        <td width="60">Term</td>
+        <td width="80">Section</td>
+        <td width="175">Course</td>
+        <td width="175">Teacher</td>
+        <td width="60">Room</td>
+    </tr>
+    ~[tlist_sql;select CC.Expression, Sections.SchoolID, Sections.TermID, Terms.Abbreviation, Sections.Course_Number, Sections.Section_Number,
+    Sections.ID, Courses.Course_Name, Teachers.LastFirst, Sections.Room from CC, Sections, Teachers, Courses, Terms where
+    cc.studentid=~[gpv:curstudid] and ABS(CC.SectionID) = Sections.ID and Sections.Teacher = Teachers.ID and lower(Courses.Course_Number)
+    = lower(Sections.Course_Number) and Terms.ID = Sections.TermID and Terms.SchoolID = Sections.SchoolID ;alternatecolor;currentschedule]
+    <tr bgcolor="#edf3fe">
+        <td>~(CC.Expression;t;externalExpression)
+            <!-- ~(Sections.SchoolID;l) ~(Sections.TermID;l) -->
+        </td>
+        <td>~(Terms.Abbreviation;t)</td>
+        <td>~(Sections.Course_Number;t)-~(Sections.Section_Number;t)
+            <!-- ~(Sections.ID;l) -->
+        </td>
+        <td>~(Courses.Course_Name;t;codemap=CourseName;id=~(Sections.Course_Number;t))</td>
+        <td>~(Teachers.LastFirst;t)</td>
+        <td>~(Sections.Room;t)</td>
+    </tr>
+    [/tlist_sql]
+</table>

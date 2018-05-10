@@ -1,0 +1,9 @@
+<a id="iepAlert" href="javascript:alertwindow('~[directory]', 'iep', '~(studentfrn)')" onMouseOver="window.status='IEP Alert'; return true">~([01]alert_IEP;if.not.blank.then=<img src="/images/alert_iep.gif" height="24" width="31" alt="IEP Alert" border="0">)</a>
+<div id="addContent">
+<br /><center><a href="studentdirectory.html">Click here for the Student Directory</a>
+<div>
+<script>
+    $j('body').addClass('psTeacher');
+    $j('table td:nth-child(5)').remove();
+    $j('form').after($j('addContent').html())
+</script>
