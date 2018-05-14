@@ -1,0 +1,3 @@
+<script>
+    $j('#navPowerTeacherPro').attr('href','/teachers/index.html#~[if#p.~[displaypref:PTPStartScreen-U~[x:userid]]=1]classes/assignments/fullscoresheet[/if#p]?defualtSection=true')
+</script>
