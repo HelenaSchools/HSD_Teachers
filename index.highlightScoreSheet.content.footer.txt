@@ -1,0 +1,23 @@
+<script type="text/javascript">
+var __stylenode = document.createElement("STYLE");
+var __rulesnode = document.createTextNode(
+'.GFPSColorRow { background-color: #ffff99 !important; }' 
+);
+__stylenode.appendChild(__rulesnode);
+var __head = document.getElementsByTagName("head")[0];
+__head.appendChild(__stylenode);
+
+// below I have the window.jQuery test becasue some reason on loads its not available and
+// errors out. It seems the location.reload resolves it. I hope I am not creating a loop..
+// Good way to test is if the highlite works, logout as teacher log back in and try again bob 3-9-18
+window.onload = function() {
+if(window.jQuery) {
+  jQuery(document).ready(function () {
+	$j( document ).on("click", ".gridTable tr", function() {
+		$j('tr').removeClass('GFPSColorRow');
+		$j(this).addClass('GFPSColorRow');
+	});
+  });
+} else { location.reload(); };
+}
+</script>

@@ -1,0 +1,59 @@
+<div id="hsdCustomContent" style="display:none">
+    <div id="emailLink" >
+        <div ng-app="myApp" ng-controller="myCtrl" >
+            {{navigator.platform}}
+            <h3>Class Information</h3>
+            
+            <ul ng-if="platform=='Win32'">
+                
+                ~[tlist_sql;
+                    select Listagg(e.emailaddress,chr(59)) within group (order by e.dcid asc) emailAddr from (
+                        select distinct emailaddress, s.dcid 
+                        from emailaddress e 
+                            join personemailaddressassoc pea on pea.EMAILADDRESSID=e.EMAILADDRESSID 
+                            join (select personid, studentdcid, row_number() over (partition by studentdcid order by studentdcid, contactpriorityorder) contactpriorityorder from studentcontactassoc) sca on sca.personid=pea.PERSONID --and sca.contactpriorityorder<3 
+                            join students s on sca.STUDENTDCID=s.dcid 
+                            join cc on cc.studentid=s.id
+                        where cc.sectionid=93156
+                            and sca.contactpriorityorder<3
+                    ) e
+                ]
+                <li><a href="mailto:?bcc=~(emailAddr.value)">Email Guardians</a></li>
+                [/tlist_sql]
+            </ul>
+            <ul ng-if="platform!='Win32'">
+                
+                ~[tlist_sql;
+                    select Listagg(e.emailaddress,chr(44)) within group (order by e.dcid asc) emailAddr from (
+                        select distinct emailaddress, s.dcid 
+                        from emailaddress e 
+                            join personemailaddressassoc pea on pea.EMAILADDRESSID=e.EMAILADDRESSID 
+                            join (select personid, studentdcid, row_number() over (partition by studentdcid order by studentdcid, contactpriorityorder) contactpriorityorder from studentcontactassoc) sca on sca.personid=pea.PERSONID --and sca.contactpriorityorder<3 
+                            join students s on sca.STUDENTDCID=s.dcid 
+                            join cc on cc.studentid=s.id
+                        where cc.sectionid=93156
+                            and sca.contactpriorityorder<3
+                    ) e
+                ]
+                <li><a href="mailto:?bcc=~(emailAddr.value)">Email Guardians</a></li>
+                [/tlist_sql]
+            </ul>
+        </div>
+    </div>
+</div> 
+
+<script>
+    $j(document).ready(function(){
+        var addEmailLink=$j('#emailLink').html();
+        $j('#nav-main-frame').prepend(addEmailLink);
+        
+        $j('#hsdCustomContent').empty();
+    });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script>
+    angular.module('myApp',[]).controller('myCtrl',['$scope',function($scope){
+        $scope.platform=navigator.platform;
+        
+    }])
+</script>
