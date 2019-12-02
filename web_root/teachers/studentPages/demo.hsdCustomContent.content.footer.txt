@@ -1,30 +1,17 @@
+<head>
+</head><!--NoLink-->
 <table id="hsdContent">
     <colgroup id="colgroup">
         <col style="width:20%">
         <col>
     </colgroup>
-    <tbody>
-        <tr>
-            <td>
-                    <a id="iepAlert" href="javascript:alertwindow('~[directory]', 'iep', '~(studentfrn)')" onMouseOver="window.status='IEP Alert'; return true">~([01]alert_IEP;if.not.blank.then=<img src="/images/alert_iep.gif" height="24" width="31" alt="IEP Alert" border="0">)</a>
-            </td>
-        </tr>
-        <tr id="previousNames">
-            <td class="bold">
-
-            </td>
-        </tr>
-    </tbody>
+    
 </table>
 
 <script>
-    $j('body').addClass('psTeacher');
-    $j('form h1').append($j('#iepAlert'))
-    $j('form p').html('~(studentname)&nbsp;<b>Grade:</b>~([01]grade_level)&nbsp;<b>Student Number:</b>~([01]student_number)&nbsp;<b>State Number:</b>~([01]state_id)&nbsp;<b>DOB:</b>~([01]dob)&nbsp;<b>School:</b>~(studschoolabbr)&nbsp;&nbsp;~[enrollmentstatus]');
     $j('table').attr('border',0).attr('cellspacing',0).attr('cellpadding',0).addClass('linkDescList');
     $j('table').prepend($j('#colGroup'))
     $j('table tr td:first-child').addClass('bold');
-    $j('td:contains("Name (Last, First MI)"').closest('tr').after($j('#previousNames'));
     $j('td:contains("Father")').closest('tr').remove();
     $j('td:contains("Mother")').closest('tr').remove();
     $j('td:contains("Guardian")').closest('tr').remove();
@@ -32,4 +19,5 @@
     $j('td:contains("Mailing Address")').closest('tr').remove();
     $j('td:contains("Address")').closest('tr').after(mailing);
     $j('#hsdContent').remove();
+    $j('table.linkDescList tr').removeAttr('bgcolor')
 </script>

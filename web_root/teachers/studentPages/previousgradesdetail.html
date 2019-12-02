@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Complete Academic Record - Detail View</title>
+    <title>~[text:psx.htmlc.teachers.hsd_teachers.CompleteAcademicRecord]</title>
     ~[wc:commonscripts]
     <link href="/images/css/screen.css" rel="stylesheet" media="screen">
     <link href="/images/css/print.css" rel="stylesheet" media="print">
@@ -23,7 +23,7 @@
 
     <form name="navigation">
         <span class="account-photo">~[studenttitlephoto]</span>
-        <h1>Complete Academic Record - Detail View
+        <h1>~[text:psx.htmlc.teachers.hsd_teachers.CompleteAcademicRecord]
             <span class="nav-teacher">
                 <select name="page" size=1 onChange="javascript:formHandler()">
                     <option value="">~[text]psx.html.teachers_studentpages.termgrades.select_screens[/text]
@@ -39,37 +39,28 @@
         <table border="0" cellspacing="0" cellpadding="4">
             <tr align="center">
                 <td>
-                    <a href="previousgrades.html?frn=~(studentfrn)">Switch to Normal View</a>
+                    <a href="previousgrades.html?frn=~(studentfrn)">~[text:psx.htmlc.teachers.hsd_teachers.NormalView]</a>
                 </td>
             </tr>
         </table>
         <table border="0" cellspacing="0" cellpadding="4" align="center" width="100%">
             <tr align="center" bgcolor="#f6f6f6">
-                <td rowspan="2" class="bold">Year/Term</td>
-                <td rowspan="2" class="bold">Grd
-                    <br>Lvl</td>
-                <td rowspan="2" align="left" class="bold">Crs #</td>
-                <td rowspan="2" align="left" class="bold">Course Name</td>
-                <td rowspan="2" class="bold">Store
-                    <br>Code</td>
-                <td rowspan="2" class="bold">Grade</td>
-                <td rowspan="2" class="bold">Earned
-                    <br>Credit</td>
-                <td rowspan="2" class="bold">Pot.
-                    <br>Credit</td>
-                <td rowspan="2" class="bold">Earns
-                    <br>Grad
-                    <br>Credit</td>
-                <td colspan="3" class="bold">Exclude from</td>
-                <td rowspan="2" class="bold">Credit
-                    <br>Type</td>
+                <td rowspan="2" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.Term]</td>
+                <td rowspan="2" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.grade_level]</td>
+                <td rowspan="2" align="left" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.CourseNumber]</td>
+                <td rowspan="2" align="left" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.CourseName]</td>
+                <td rowspan="2" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.StoreCode]</td>
+                <td rowspan="2" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.Grade]</td>
+                <td rowspan="2" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.EarnedCreditHours]</td>
+                <td rowspan="2" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.PotentialCreditHours]</td>
+                
+                <td colspan="3" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.ExcludeFrom]</td>
+                <td rowspan="2" class="bold">~[text:psx.htmlc.teachers.hsd_teachers.CreditType]</td>
             </tr>
             <tr align="center" bgcolor="#f6f6f6">
-                <td class="bold">GPA</td>
-                <td class="bold">Class
-                    <br>Rank</td>
-                <td class="bold">Honor
-                    <br>Roll</td>
+                <td class="bold">~[text:psx.htmlc.teachers.hsd_teachers.GPA2]</td>
+                <td class="bold">~[text:psx.htmlc.teachers.hsd_teachers.Class]</td>
+                <td class="bold">~[text:psx.htmlc.teachers.hsd_teachers.Honor]</td>
             </tr>
             <tr align="center" bgcolor="#edf3fe">~[tlist;storedgrades;studentid=~(curstudid);alternatecolor;nonemessage=No historical grades found for this student.;sortcmd;grade_level,&lt;,storecode,&gt;,course_name,&gt;]
                 <td>~(reltermname;1;1)</td>
@@ -81,7 +72,7 @@
                     <a href="esg.html?frn=~(frn)">~(grade;if.blank.then=_)</a>
                 </td>
                 <td>~(earnedcrhrs)</td>
-                <td>~(potentialcrhrs)</td>
+                
                 <td>~(decode;~(potentialcrhrs);0; ;Yes)</td>
                 <td>~(decode;~(excludefromgpa);1;Yes; )</td>
                 <td>~(decode;~(excludefromclassrank);1;Yes; )</td>

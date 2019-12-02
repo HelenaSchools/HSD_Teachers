@@ -1,0 +1,27 @@
+<div id="hsdContent" style="display: none;">
+        ~([01]alert_IEP;if.not.blank.then=<a id="iepAlert" href="javascript:alertwindow('~[directory]', 'iep', '~(studentfrn)')" onMouseOver="window.status='IEP Alert'; return true">
+        <img src="/images/alert_iep.gif" height="24" width="31" alt="IEP Alert" border="0">
+        </a>)
+    <p id="studentHeader">
+            ~(studentname)&nbsp;
+            <b>~[text:psx.htmlc.teachers.hsd_teachers.gradeHeader]</b>~([01]grade_level)&nbsp;
+            <b>~[text:psx.htmlc.teachers.hsd_teachers.StudentNumber]</b>~([01]student_number)&nbsp;
+            <b>~[text:psx.htmlc.teachers.hsd_teachers.StateNumber]</b>~([01]state_id)&nbsp;
+            <b>~[text:psx.htmlc.teachers.hsd_teachers.DOB]</b>~([01]dob)&nbsp;
+            <b>~[text:psx.htmlc.teachers.hsd_teachers.School]</b>~(studschoolabbr)&nbsp;&nbsp;~[enrollmentstatus]
+    </p>
+</div>
+
+
+<script>
+    
+    if($j('span.account-photo')!==undefined){
+        var iepStudent="[STUDENTS.U_SPED]Alert_IEP";
+        if(iepStudent.length>0){
+            $j('form h1').append($j('#iepAlert'))
+        }
+        
+        $j('form p').html($j('p#studentHeader').html());
+    }
+    $j('div#hsdContent').remove();
+</script>

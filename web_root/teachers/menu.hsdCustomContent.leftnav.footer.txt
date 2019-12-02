@@ -18,7 +18,7 @@
                             and sca.contactpriorityorder<3
                     ) e
                 ]
-                <li><a href="mailto:?bcc=~(emailAddr.value)">Email Guardians</a></li>
+                <li><a href="mailto:?bcc=~(emailAddr.value)">~[text:psx.htmlc.teachers.hsd_teachers.emailGuardians]</a></li>
                 [/tlist_sql]
             </ul>
             <ul ng-if="platform!='Win32'">
@@ -35,7 +35,7 @@
                             and sca.contactpriorityorder<3
                     ) e
                 ]
-                <li><a href="mailto:?bcc=~(emailAddr.value)">Email Guardians</a></li>
+                <li><a href="mailto:?bcc=~(emailAddr.value)">~[text:psx.htmlc.teachers.hsd_teachers.emailGuardians]</a></li>
                 [/tlist_sql]
             </ul>
         </div>

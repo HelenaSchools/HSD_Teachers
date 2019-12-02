@@ -3,7 +3,7 @@
 <!-- start right frame -->
 
 <head>
-    <title>Contacts</title>
+    <title>~[text:psx.htmlc.teachers.hsd_teachers.Contacts]</title>
     ~[wc:commonscripts]
     <link href="/images/css/screen.css" rel="stylesheet" media="screen">
     <link href="/images/css/print.css" rel="stylesheet" media="print">
@@ -16,7 +16,7 @@
     <a href="/admin/home.html" target="_top">~[text:psx.html.admin_students.misc.start_page]</a> &gt;<a href="home.html?selectstudent=nosearch" target="_top">~[text:psx.html.admin_students.misc.student_selection]</a> &gt;Contacts<!-- breadcrumb end -->
     ~[wc:admin_navigation_frame_css] 
     ~[wc:title_student_begin_css]
-        Contacts
+    ~[text:psx.htmlc.teachers.hsd_teachers.Contacts]
     ~[wc:title_student_end_css]
     <!-- start of content and bounding box -->
     <div ng-controller="studentContactsController">
@@ -34,10 +34,10 @@
                         
                     </div>
                 </div>
-                <h5 ng-if="contact.relation=='Not Set'">Relationship not set.</h5><h5 ng-if="!(contact.relation=='Not Set')">{{contact.relation}}</h5>
+                <h5 ng-if="contact.relation=='Not Set'">~[text:psx.htmlc.teachers.hsd_teachers.Relationship]</h5><h5 ng-if="!(contact.relation=='Not Set')">{{contact.relation}}</h5>
                 <div class="row">
                     <div class="no-border-box col-sm-6 col-md-6" ng-if="contact.addresses.length>0">
-                        <h6 class="dataHead"><strong>Addresses</strong></h6>
+                        <h6 class="dataHead"><strong>~[text:psx.htmlc.teachers.hsd_teachers.addresses]</strong></h6>
                         <div ng-repeat="address in contact.addresses">
                             <span class="dataHead">{{address.type}}</span>
                             <div class="no-border-box">
@@ -49,15 +49,15 @@
                         </div>
                     </div>
                     <div class="no-border-box col-sm-8 col-md-6" ng-if="contact.phones.length>0">
-                        <h6 class="dataHead">Phones</h6>
+                        <h6 class="dataHead">~[text:psx.htmlc.teachers.hsd_teachers.Phones]</h6>
                         <div ng-repeat="phone in contact.phones">
-                            <span><span ng-if="!phone.type">Phone type not set</span><span ng-if="phone.type" class="dataHead">{{phone.type}}</span>: {{phone.number}} <span ng-if="phone.extension">Ext: {{phone.extension}}</span><span ng-if="phone.preferred"> (preferred)</span></span>
+                            <span><span ng-if="!phone.type">~[text:psx.htmlc.teachers.hsd_teachers.PhoneType]</span><span ng-if="phone.type" class="dataHead">{{phone.type}}</span>: {{phone.number}} <span ng-if="phone.extension">Ext: {{phone.extension}}</span><span ng-if="phone.preferred"> (preferred)</span></span>
                         </div>
                     </div>
                     <div class="no-border-box col-sm-3 col-md-12" ng-if="contact.emails.length>0">
-                        <h6 class="dataHead">Emails</h6>
+                        <h6 class="dataHead">~[text:psx.htmlc.teachers.hsd_teachers.emails]</h6>
                         <div ng-repeat="email in contact.emails">
-                            <span><span ng-if="!email.type">Email type not set</span><span ng-if="email.type" class="dataHead">{{email.type}}</span>: {{email.address}}</span>
+                            <span><span ng-if="!email.type">~[text:psx.htmlc.teachers.hsd_teachers.EmailType]</span><span ng-if="email.type" class="dataHead">{{email.type}}</span>: {{email.address}}</span>
                         </div>
                     </div>
                 </div>

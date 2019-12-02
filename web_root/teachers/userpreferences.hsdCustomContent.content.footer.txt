@@ -1,8 +1,8 @@
 <table id="hsdContent">
     <tbody>
         <tr>
-            <td><a href="/teachers/userupdate.html?frn=~[gpv:frn]">Update Information</a></td>
-            <td>Update personal information.</td>
+            <td><a href="/teachers/userupdate.html?frn=~[gpv:frn]">~[text:psx.htmlc.teachers.hsd_teachers.updateInfo]</a></td>
+            <td>~[text:psx.htmlc.teachers.hsd_teachers.updateInfoMsg]</td>
         </tr>
     </tbody>
 </table>
