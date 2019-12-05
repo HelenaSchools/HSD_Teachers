@@ -1,42 +1,9 @@
 <div id="hsdCustomContent" style="display:none">
     <div id="emailLink" >
         <div ng-app="myApp" ng-controller="myCtrl" >
-            {{navigator.platform}}
             <h3>Class Information</h3>
-            
-            <ul ng-if="platform=='Win32'">
-                
-                ~[tlist_sql;
-                    select Listagg(e.emailaddress,chr(59)) within group (order by e.dcid asc) emailAddr from (
-                        select distinct emailaddress, s.dcid 
-                        from emailaddress e 
-                            join personemailaddressassoc pea on pea.EMAILADDRESSID=e.EMAILADDRESSID 
-                            join (select personid, studentdcid, row_number() over (partition by studentdcid order by studentdcid, contactpriorityorder) contactpriorityorder from studentcontactassoc) sca on sca.personid=pea.PERSONID --and sca.contactpriorityorder<3 
-                            join students s on sca.STUDENTDCID=s.dcid 
-                            join cc on cc.studentid=s.id
-                        where cc.sectionid=93156
-                            and sca.contactpriorityorder<3
-                    ) e
-                ]
-                <li><a href="mailto:?bcc=~(emailAddr.value)">~[text:psx.htmlc.teachers.hsd_teachers.emailGuardians]</a></li>
-                [/tlist_sql]
-            </ul>
-            <ul ng-if="platform!='Win32'">
-                
-                ~[tlist_sql;
-                    select Listagg(e.emailaddress,chr(44)) within group (order by e.dcid asc) emailAddr from (
-                        select distinct emailaddress, s.dcid 
-                        from emailaddress e 
-                            join personemailaddressassoc pea on pea.EMAILADDRESSID=e.EMAILADDRESSID 
-                            join (select personid, studentdcid, row_number() over (partition by studentdcid order by studentdcid, contactpriorityorder) contactpriorityorder from studentcontactassoc) sca on sca.personid=pea.PERSONID --and sca.contactpriorityorder<3 
-                            join students s on sca.STUDENTDCID=s.dcid 
-                            join cc on cc.studentid=s.id
-                        where cc.sectionid=93156
-                            and sca.contactpriorityorder<3
-                    ) e
-                ]
-                <li><a href="mailto:?bcc=~(emailAddr.value)">~[text:psx.htmlc.teachers.hsd_teachers.emailGuardians]</a></li>
-                [/tlist_sql]
+            <ul>
+                <li><a ng-href="mailto:?bcc={{guardianEmails}}" >~[text:psx.htmlc.teachers.hsd_teachers.emailGuardians]</a></li>
             </ul>
         </div>
     </div>
@@ -52,8 +19,24 @@
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script>
-    angular.module('myApp',[]).controller('myCtrl',['$scope',function($scope){
-        $scope.platform=navigator.platform;
-        
-    }])
+    angular
+        .module('myApp',[])
+        .factory('guardianEmailService',['$http', function($http){
+            return{
+                getGuardianEmails: function(sectionid, platform){
+                    var data = {"sectionid":sectionid,"platform":platform}
+                    return $http.post('/ws/schema/query/org.helenaschools.hsd_teachers.teacher.guardianEmails',JSON.stringify(data)).then(function(response){
+                        if(response.status==200){
+                            return response.data.record[0].tables.students.emails;
+                        }
+                    })
+                }
+            }
+        }])
+        .controller('myCtrl',['$scope','guardianEmailService',function($scope,service){
+            $scope.platform=navigator.platform;
+            service.getGuardianEmails(~(gpv.sectionid), $scope.platform).then(function(emails){
+                $scope.guardianEmails=emails;
+            })
+        }])
 </script>

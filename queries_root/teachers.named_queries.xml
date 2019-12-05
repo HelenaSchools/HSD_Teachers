@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query name="org.helenaschools.hsd_teachers.teacher.guardianEmails"
+        coreTable="STUDENTS">
+        <args>
+            <arg
+                name="sectionid"
+                required="true"
+                default="~(gpv.sectionid)"
+                />
+            <arg
+                name="platform"
+                required="true"
+                default="Win32"
+                />
+        </args>
+        <columns>
+            <column column="students.last_name" data-type="string">emails</column>
+        </columns>
+        <sql>
+            <![CDATA[
+                SELECT 
+                    Listagg(e.emailaddress,case :platform when 'Win32' then chr(59) else chr(44) end) within group (order by e.dcid asc) emailAddr 
+                from (
+                    select distinct e.emailaddress, s.dcid 
+                        from emailaddress e 
+                            join personemailaddressassoc pea on pea.EMAILADDRESSID=e.EMAILADDRESSID 
+                            join (
+                                select personid, studentdcid, row_number() over (partition by studentdcid order by studentdcid, contactpriorityorder) contactpriorityorder 
+                                from studentcontactassoc) sca on sca.personid=pea.PERSONID 
+                            join students s on sca.STUDENTDCID=s.dcid 
+                            join cc on cc.studentid=s.id
+                        where cc.sectionid=:sectionid
+                            and sca.contactpriorityorder<3
+                ) e
+            ]]>
+        </sql>
+    </query>
+    <query name="org.helenaschools.hsd_teachers.teacher.spedAlert"
+        flattened="true"
+        >
+        <args>
+            <arg    
+                name="periodid"
+                required="true"
+                default="~(gpv.period_id)"
+                />
+            <arg   
+                name="sectionid"
+                required="true"
+                default="~(gpv.sectionId)"
+                />
+        </args>
+        <columns>
+            <column column="students.lastfirst">lastfirst</column>
+            <column column="students.dcid">dcid</column>
+        </columns>
+        <sql>
+            <![CDATA[
+                Select distinct
+                    s.lastfirst,
+                    s.dcid
+                from PERIOD p
+                    inner join SECTION_MEETING sm on sm.SchoolID = p.SchoolID and sm.year_id = p.year_id and sm.period_number = p.period_number
+                    inner join SECTIONS se on se.id = sm.SectionID
+                    inner join CC on CC.SectionID = se.id
+                    inner join STUDENTS s on s.ID = CC.StudentID
+                    inner join s_mt_stu_programs_x mt on mt.studentsdcid=s.dcid
+                where p.ID = :periodid and sm.sectionid = :sectionid and (mt.is504=1 or mt.spedstatus=1)
+                order by s.lastfirst
+            ]]>
+        </sql>
+    </query>
+</queries>

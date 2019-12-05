@@ -1,44 +1,43 @@
-<table id="tbl_sped_alerts" style="display:none">
-    <tr>
-        <th>IEP</th>
-        <th>Accomodations</th>
-    </tr>
-    ~[tlist_sql;
-    Select 
-        s.lastfirst, 
-        s.DCID, 
-        CASE when mt.is504 =1 or mt.spedstatus=1 THEN 'Y' ELSE END sped
-    from PERIOD p
-        inner join SECTION_MEETING sm on sm.SchoolID = p.SchoolID and sm.year_id = p.year_id and sm.period_number = p.period_number
-        inner join SECTIONS se on se.id = sm.SectionID
-        inner join CC on CC.SectionID = se.id
-        inner join STUDENTS s on s.ID = CC.StudentID
-        inner join s_mt_stu_programs_x mt on mt.studentdcid=s.dcid
-    where p.ID = ~[gpv:Period_ID] and sm.sectionid = ~[gpv:sectionId]
-    order by s.lastfirst;
-    ]
-    <tr>
-        <td id="~(lastfirst;t)"> 
-            <a class="dialogM" title="IEP/504 Accommodations" href="/~[directory]/alerts/iepalert.html?frn=001~(DCID,t)">
-                <img src="/images/alert_iep.gif">
-            </a>
-        </td>
-        <td id="sped">~(sped;i)</td>
-    </tr>
-    [/tlist_sql]
-</table>
+<div ng-app="temp" ng-controller="tempController" style="display: none;"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script>
-    // iterate through all rows of table
-$j('#attendance-table > tbody > tr').each(function() {
-    // Make sure we're past the header row.
-    if($j(this).index() > 0) {
-        // Find the row in the hidden table containing the matching Student's info
-        var row = $j('#tbl_sped_alerts').find('td[id="'+$j(this).find('td').eq(0).text()+'"]').closest('tr');
-        // If SpEd then append the contents of the link cell into the viewable table's Alert cell
-        if( row.find('#sped').text() == 'Y') {
-            $j(this).find('td').eq(1).append( row.find('td').eq(0).contents() );
-        }
-    }
-});
-$j('#tbl_sped_alerts').remove();
+    
+    angular
+        .module('temp',[])
+        .factory('spedService',['$http',function($http){
+            return {
+                getSpedStatus: function(sectionid,periodid){
+                    var data={"sectionid":sectionid,"periodid":periodid};
+                    return $http.post('/ws/schema/query/org.helenaschools.hsd_teachers.teacher.spedAlert',JSON.stringify(data)).then(function(response){
+                        if(response.status==200){
+                            return response.data.record;
+                        }
+                    })
+                }
+            }
+        }])
+        .controller('tempController',['spedService',function(service){
+            
+            service.getSpedStatus(~(gpv.sectionid),~(gpv.period_id)).then(function(spedData){
+                
+                console.log(spedData);
+                $j('#attendance-table > tbody > tr').each(function() {
+                    console.log("iterate through table")
+                    if($j(this).index() > 0) {
+                        for(var i=0;i<spedData.length;i++){
+                            console.log($j(this).find('td').eq(0).text())
+                            console.log(spedData[i].lastfirst)
+                            console.log(spedData[i].lastfirst==$j(this).find('td').eq(0).text())
+                                if (spedData[i].lastfirst==$j(this).find('td').eq(0).text()){
+                                    var html = "<a class='dialogM' title='IEP/504 Accomodations' href='/~[directory]/alerts/iepalert.html?frn=001"+spedData[i].dcid+"'><img src='/images/alert_iep.gif'></a>"
+                    
+                                    $j(this).find('td').eq(1)
+                                        .append(html)
+                                }
+                        }
+                    }
+
+                });
+            })
+        }])
 </script>
